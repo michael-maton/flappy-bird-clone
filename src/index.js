@@ -20,8 +20,12 @@ new Phaser.Game(config);
 
 function preload() {
   this.load.image('sky', 'assets/sky.png');
+  this.load.image('bird', 'assets/bird.png');
 }
 
+let bird = null;
+
 function create() {
-  this.add.image(400, 300, 'sky');
+  this.add.image(config.width / 2, config.height / 2, 'sky');
+  this.add.sprite(config.width / 10, config.height / 2, 'bird').setOrigin(0);
 }
