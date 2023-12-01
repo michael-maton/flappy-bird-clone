@@ -7,7 +7,6 @@ const config = {
   physics: {
     default: 'arcade',
     arcade: {
-      gravity: { y: 400 },
       debug: true,
     },
   },
@@ -23,17 +22,28 @@ new Phaser.Game(config);
 function preload() {
   this.load.image('sky', 'assets/sky.png');
   this.load.image('bird', 'assets/bird.png');
+  this.load.image('pipe', 'assets/pipe.png');
 }
 
 let bird = null;
+let top_pipe = null;
+let bottom_pipe = null;
 const flapVELOCITY = 250;
 const initialPOSITION = { x: config.width / 10, y: config.height / 2 };
 
 function create() {
   this.add.image(config.width / 2, config.height / 2, 'sky');
+
   bird = this.physics.add
     .sprite(initialPOSITION.x, initialPOSITION.y, 'bird')
     .setOrigin(0);
+  bird.body.gravity.y = 400;
+
+  top_pipe = this.physics.add.sprite(400, 100, 'pipe').setOrigin(0, 1);
+
+  bottom_pipe = this.physics.add
+    .sprite(400, top_pipe.y + 100, 'pipe')
+    .setOrigin(0, 0);
 
   var spaceBar = this.input.keyboard.addKey(
     Phaser.Input.Keyboard.KeyCodes.SPACE
